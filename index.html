@@ -1,1 +1,691 @@
-hello world
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gabriel Garcia, staff software engineer specializing in distributed systems, storage infrastructure, and cloud architecture.">
+  <title>Gabriel Garcia</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231d1e27'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23bd93f9'%3EGG%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #1d1e27;
+      --paper: #2b2d3a;
+      --ink: #f8f8f2;
+      --muted: #a998d4;
+      --line: #44475a;
+      --link: #8be9fd;
+      --link-hover: #bd93f9;
+      --accent: #ff79c6;
+      --green: #50fa7b;
+      --panel-dark: #242632;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 24% 10%, rgba(189, 147, 249, 0.14), transparent 32%),
+        radial-gradient(circle at 82% 3%, rgba(139, 233, 253, 0.09), transparent 26%),
+        var(--bg);
+      color: var(--ink);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+    }
+
+    .page {
+      width: min(780px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 54px;
+    }
+
+    .intro {
+      padding-top: 20px;
+      display: grid;
+      grid-template-columns: 140px minmax(0, 1fr);
+      gap: 28px;
+      align-items: center;
+      padding-bottom: 44px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--paper);
+      box-shadow: 0 0 0 1px var(--line), 0 18px 38px rgba(0, 0, 0, 0.28);
+      object-fit: cover;
+      background: var(--paper);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 4px;
+      font-size: clamp(2.4rem, 8vw, 4.2rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .lead {
+      margin-bottom: 0;
+      font-size: 1.08rem;
+    }
+
+    .contact-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 26px 0 0;
+      padding: 0;
+      list-style: none;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .icon-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 160ms ease, transform 160ms ease;
+    }
+
+    .icon-link:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .icon-link svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+    }
+
+    .icon-link svg[fill="none"] {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .progress-nav {
+      position: sticky;
+      top: 14px;
+      z-index: 4;
+      display: flex;
+      gap: 8px;
+      width: max-content;
+      max-width: 100%;
+      margin: 0 auto 22px;
+      padding: 7px;
+      border: 1px solid rgba(189, 147, 249, 0.22);
+      border-radius: 999px;
+      background: rgba(36, 38, 50, 0.84);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(12px);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .progress-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background 160ms ease, color 160ms ease;
+    }
+
+    .progress-nav a.is-active,
+    .progress-nav a:hover {
+      background: rgba(189, 147, 249, 0.18);
+      color: var(--ink);
+    }
+
+    section {
+      padding: 42px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin-bottom: 22px;
+      font-size: 1.65rem;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin-bottom: 2px;
+      font-size: 1.18rem;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .small-heading {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .trail {
+      position: relative;
+      display: grid;
+      gap: 22px;
+      padding: 10px 0 12px;
+    }
+
+    .trail::before {
+      position: absolute;
+      display: none;
+      top: 28px;
+      bottom: 34px;
+      left: 50%;
+      width: 96px;
+      border-left: 3px dashed rgba(189, 147, 249, 0.58);
+      border-radius: 48%;
+      content: "";
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .trail-map {
+      position: absolute;
+      inset: 22px 0 28px;
+      width: 100%;
+      height: calc(100% - 50px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .trail-map path {
+      fill: none;
+      stroke: rgba(189, 147, 249, 0.66);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 10 12;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .trail-stop {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 76px minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .trail-stop:nth-child(even) .trail-card {
+      grid-column: 3;
+    }
+
+    .trail-stop:nth-child(even) .trail-pin {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .trail-card {
+      grid-column: 1;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--paper);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .trail-pin {
+      display: grid;
+      place-items: center;
+      grid-column: 2;
+      width: 54px;
+      height: 54px;
+      margin: 0 auto;
+      border: 3px solid var(--paper);
+      border-radius: 50% 50% 50% 8px;
+      background: var(--link-hover);
+      color: #fff;
+      box-shadow: 0 0 0 1px var(--line), 0 12px 24px rgba(189, 147, 249, 0.24);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 900;
+      transform: rotate(-45deg);
+    }
+
+    .trail-pin img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      object-fit: contain;
+      transform: rotate(45deg);
+    }
+
+    .trail-stop:nth-child(even) .trail-pin {
+      background: var(--accent);
+      box-shadow: 0 0 0 1px var(--line), 0 12px 24px rgba(255, 121, 198, 0.18);
+    }
+
+    .trail-card p,
+    .skills p,
+    .about p {
+      margin-bottom: 0;
+      color: #d9d7e6;
+    }
+
+    .meta {
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .date {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .role-ladder {
+      display: grid;
+      gap: 9px;
+      margin: 14px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .role-ladder li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: baseline;
+      padding: 8px 0 8px 14px;
+      border-left: 2px solid rgba(189, 147, 249, 0.35);
+      color: #d9d7e6;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .role-ladder strong {
+      color: var(--ink);
+    }
+
+    .role-ladder span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px 28px;
+    }
+
+    .skills h3 {
+      color: var(--accent);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+    }
+
+    .footer {
+      padding-top: 30px;
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 660px) {
+      body {
+        font-size: 17px;
+      }
+
+      .page {
+        width: min(100% - 24px, 780px);
+        padding-top: 18px;
+      }
+
+      .intro {
+        display: block;
+      }
+
+      .progress-nav {
+        top: 10px;
+        width: 100%;
+        justify-content: space-between;
+        overflow-x: auto;
+      }
+
+      .avatar {
+        width: 118px;
+        height: 118px;
+        margin-bottom: 18px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trail {
+        gap: 22px;
+        padding-left: 10px;
+      }
+
+      .trail::before {
+        display: block;
+        left: 27px;
+        width: 0;
+        transform: none;
+      }
+
+      .trail-map {
+        display: none;
+      }
+
+      .trail-stop,
+      .trail-stop:nth-child(even) {
+        grid-template-columns: 54px minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .trail-card,
+      .trail-stop:nth-child(even) .trail-card {
+        grid-column: 2;
+      }
+
+      .trail-pin,
+      .trail-stop:nth-child(even) .trail-pin {
+        grid-column: 1;
+        grid-row: 1;
+        width: 46px;
+        height: 46px;
+      }
+
+      .role-ladder li {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .role-ladder span {
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="progress-nav" aria-label="Page progress">
+      <a class="is-active" href="#home" data-section-link="home">Home</a>
+      <a href="#about" data-section-link="about">About</a>
+      <a href="#journey" data-section-link="journey">Journey</a>
+      <a href="#skills" data-section-link="skills">Skills</a>
+    </nav>
+
+    <section class="intro" id="home" aria-labelledby="name">
+      <img class="avatar" src="profile.png" alt="Profile image of Gabriel Garcia">
+      <div>
+        <h1 id="name">Gabriel Garcia</h1>
+        <p class="subtitle">Staff Software Engineer - Storage, distributed systems, cloud infrastructure</p>
+        <p class="lead">
+          Hey! I’m Gabriel, a backend infrastructure engineer in New York. I specialize in NewSQL storage,
+          petabyte-scale migrations, revenue-critical platforms, and authorization systems that need to stay boringly reliable.
+        </p>
+
+        <ul class="contact-icons" aria-label="Contact links">
+          <li>
+            <a class="icon-link" href="mailto:gabrielgarc23@gmail.com" aria-label="Email Gabriel">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16v12H4z"></path>
+                <path d="m4 7 8 6 8-6"></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="icon-link" href="https://linkedin.com/in/gabriel-raphael-garcia-montoya" aria-label="LinkedIn profile">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5.001zM3 9.75h4v11H3zM10 9.75h3.84v1.5h.05c.54-.97 1.86-2 3.83-2 4.1 0 4.86 2.7 4.86 6.2v5.3h-4v-4.7c0-1.12-.02-2.56-1.56-2.56-1.56 0-1.8 1.22-1.8 2.48v4.78h-4z"></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="icon-link" href="https://github.com/lolitsgab" aria-label="GitHub profile">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 .7A11.3 11.3 0 0 0 8.43 22.72c.57.1.77-.25.77-.55v-2.12c-3.13.68-3.79-1.34-3.79-1.34-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 .1 2.63.76 3.27-.89.1-.73.39-1.23.71-1.51-2.5-.29-5.13-1.25-5.13-5.57 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.44.11-2.99 0 0 .95-.3 3.1 1.15a10.7 10.7 0 0 1 5.64 0c2.15-1.45 3.1-1.15 3.1-1.15.61 1.55.23 2.7.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.33-2.63 5.28-5.14 5.56.4.35.76 1.03.76 2.08v3.47c0 .31.2.66.78.55A11.3 11.3 0 0 0 12 .7z"></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="icon-link" href="resume.pdf" aria-label="Resume PDF">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 3h7l4 4v14H7z"></path>
+                <path d="M14 3v5h4"></path>
+                <path d="M10 12h5"></path>
+                <path d="M10 16h5"></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-heading">
+      <p class="small-heading">About</p>
+      <h2 id="about-heading">I build storage platforms for teams that need scale, reliability, and less operational drag.</h2>
+      <p>
+        My recent work spans storage-as-a-service, HBase to TiDB migrations, Kafka re-architecture, zero-downtime launches,
+        and security systems for high-value infrastructure. I like turning scattered access patterns and production pain into
+        clear platforms with SLOs, migration playbooks, and sane on-call ownership.
+      </p>
+    </section>
+
+    <section id="journey" aria-labelledby="timeline-heading">
+      <p class="small-heading">Timeline</p>
+      <h2 id="timeline-heading">A map of the path so far</h2>
+
+      <div class="trail">
+        <svg class="trail-map" viewBox="0 0 780 1040" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M390 24 C250 125 530 230 390 332 C250 432 530 540 390 642 C250 742 530 850 390 952 C320 1004 455 1018 390 1020"></path>
+        </svg>
+
+        <article class="trail-stop">
+          <div class="trail-card">
+            <span class="date">Sep 2022 - Present</span>
+            <h3>Pinterest</h3>
+            <p class="meta">Pinterest - Storage Services and Data Engineering - Manhattan, NY</p>
+            <ul class="role-ladder">
+              <li><strong>Staff Software Engineer</strong><span>Mar 14, 2026 - Present</span></li>
+              <li><strong>Senior Software Engineer</strong><span>Mar 19, 2024 - Mar 14, 2026</span></li>
+              <li><strong>Software Engineer</strong><span>Sep 2022 - Mar 19, 2024</span></li>
+            </ul>
+            <p>
+              Joined as a mid-level engineer and grew into Staff while building storage-as-a-service foundations,
+              leading petabyte-scale HBase to TiDB migrations, launching revenue-critical ads storage, and founding
+              a storage platform team.
+            </p>
+          </div>
+          <div class="trail-pin" aria-hidden="true"><img src="https://www.google.com/s2/favicons?domain=pinterest.com&sz=64" alt=""></div>
+        </article>
+
+        <article class="trail-stop">
+          <div class="trail-card">
+            <span class="date">2019 - Sep 2022</span>
+            <h3>Google</h3>
+            <p class="meta">Google - Authorization Services - Sunnyvale, CA</p>
+            <ul class="role-ladder">
+              <li><strong>Software Engineer</strong><span>2021 - Sep 2022</span></li>
+              <li><strong>Software Engineer, New Grad</strong><span>2020 - 2021</span></li>
+              <li><strong>Software Engineering Intern</strong><span>2019</span></li>
+            </ul>
+            <p>
+              Returned full-time after internship and was promoted one year later. Worked on Authorization Services,
+              Cloud IAP, Multiparty Authorization, zero-trust security infrastructure, and privilege-escalation detection.
+            </p>
+          </div>
+          <div class="trail-pin" aria-hidden="true"><img src="https://www.google.com/s2/favicons?domain=google.com&sz=64" alt=""></div>
+        </article>
+
+        <article class="trail-stop">
+          <div class="trail-card">
+            <span class="date">June 2020</span>
+            <h3>Graduated from College</h3>
+            <p class="meta">University of California, Santa Cruz</p>
+            <p>
+              Graduated with a computer science background after studying systems, infrastructure, security,
+              computer vision, mobile apps, and high-performance data structures.
+            </p>
+          </div>
+          <div class="trail-pin" aria-hidden="true"><img src="https://www.google.com/s2/favicons?domain=ucsc.edu&sz=64" alt=""></div>
+        </article>
+
+        <article class="trail-stop">
+          <div class="trail-card">
+            <span class="date">2018</span>
+            <h3>Flight Software Engineering Intern</h3>
+            <p class="meta">Space Systems Loral - San Jose, CA</p>
+            <p>
+              Wrote telemetry command categorization tools, automated flight-simulator workflows with Python,
+              designed a third-stage bootloader for custom kernels, and worked on drivers for a custom Linux install.
+            </p>
+          </div>
+          <div class="trail-pin" aria-hidden="true"><img src="https://www.google.com/s2/favicons?domain=maxar.com&sz=64" alt=""></div>
+        </article>
+
+        <article class="trail-stop">
+          <div class="trail-card">
+            <span class="date">2017 - 2018</span>
+            <h3>Software Engineering Student</h3>
+            <p class="meta">Google Code U - Santa Cruz, CA</p>
+            <p>
+              Built a team chat app with JavaScript, HTML, and CSS, implemented message-emotion analysis with Google Cloud,
+              and helped design the application interface.
+            </p>
+          </div>
+          <div class="trail-pin" aria-hidden="true"><img src="https://www.google.com/s2/favicons?domain=google.com&sz=64" alt=""></div>
+        </article>
+
+        <article class="trail-stop">
+          <div class="trail-card">
+            <span class="date">2016</span>
+            <h3>Started College</h3>
+            <p class="meta">University of California, Santa Cruz</p>
+            <p>
+              Started at UC Santa Cruz and began building the foundation that led into distributed systems,
+              infrastructure, security, computer vision, and mobile development.
+            </p>
+          </div>
+          <div class="trail-pin" aria-hidden="true"><img src="https://www.google.com/s2/favicons?domain=ucsc.edu&sz=64" alt=""></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="skills" id="skills" aria-labelledby="skills-heading">
+      <p class="small-heading">Stack</p>
+      <h2 id="skills-heading">Languages and technologies</h2>
+
+      <div class="skills-grid">
+        <div>
+          <h3>Languages</h3>
+          <p>Java, Golang, Python, C</p>
+        </div>
+        <div>
+          <h3>Databases</h3>
+          <p>MySQL, TiDB, NewSQL, HBase, NoSQL, RocksDB, Redis, Memcached</p>
+        </div>
+        <div>
+          <h3>Infrastructure</h3>
+          <p>Kafka, CDC, Flink, Iceberg, Hive, stream processing, batch processing, EKS</p>
+        </div>
+        <div>
+          <h3>Systems</h3>
+          <p>OLTP, OLAP, storage services, data engineering, authorization, zero-trust infrastructure</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      © 2026 Gabriel Garcia · <a href="resume.pdf">Resume PDF</a>
+    </footer>
+  </main>
+  <script>
+    const progressLinks = [...document.querySelectorAll("[data-section-link]")];
+    const sections = progressLinks
+      .map((link) => document.getElementById(link.dataset.sectionLink))
+      .filter(Boolean);
+
+    const setActiveSection = (id) => {
+      progressLinks.forEach((link) => {
+        link.classList.toggle("is-active", link.dataset.sectionLink === id);
+      });
+    };
+
+    const updateActiveSection = () => {
+      const scroller = document.scrollingElement || document.documentElement;
+      const atPageEnd = window.innerHeight + window.scrollY >= scroller.scrollHeight - 120;
+      if (atPageEnd && sections.length) {
+        setActiveSection(sections[sections.length - 1].id);
+        return;
+      }
+
+      const marker = window.scrollY + window.innerHeight * 0.55;
+      const active = sections.reduce((current, section) => {
+        return section.offsetTop <= marker ? section : current;
+      }, sections[0]);
+
+      if (active) {
+        setActiveSection(active.id);
+      }
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+  </script>
+</body>
+</html>
